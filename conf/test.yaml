@@ -1,0 +1,19 @@
+name: test
+listen_addr: 127.0.0.1:1337
+rpc_addr: 127.0.0.1:1339
+data_dir: ./data
+backend_addr: 127.0.0.1:1338
+logging_level: DEBUG
+
+http:
+  rules:
+    - regexp: .*
+      mode: streaming
+      actions:
+        - python: ./conf/test.py
+        - libinjection:
+            xss: true
+            sqli: true
+
+neighbours:
+  - 127.0.0.1:1340
